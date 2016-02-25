@@ -1,10 +1,12 @@
-var Game = {
-  w: 800,
-  h: 600
-};
 
-// var w = 800;
-// var h = 600;
+var tileSize = 20,
+rows = 12,
+cols = 12;
+
+var Game = {
+  w: tileSize * cols,
+  h: tileSize * rows 
+};
 
 Game.Boot = function(game) {
   this.game = game;
@@ -49,11 +51,19 @@ Game.Load.prototype = {
     //Load button for twitter
     this.game.load.image('twitter','assets/images/twitter.png');
 
+
+    //Tilemaps
+    this.game.load.tilemap('level1', 'assets/atlas/level1.json', null, Phaser.Tilemap.TILED_JSON);
+    this.game.load.spritesheet('tiles', 'assets/images/tiles.png', 20, 20, 7);
+
+    this.game.load.spritesheet('player', 'assets/images/player.png', 20, 20, 5);
+
     // Music Track
     // this.game.load.audio('music','soundtrack.mp3');
 
   },
   create: function() {
-    this.game.state.start('Menu');
+    // this.game.state.start('Menu');
+    this.game.state.start('Play');
   }
 };

@@ -24,8 +24,30 @@ Game.Play = function(game) {
 };
 
 Game.Play.prototype = {
+  init: function() {
+    this.game.physics.startSystem(Phaser.Physics.ARCADE);
+  },
   create: function() {
     this.game.world.setBounds(0, 0 ,Game.w ,Game.h);
+
+
+		this.game.stage.backgroundColor = '#ececec';
+
+    this.map = this.game.add.tilemap('level1');
+    // this.map.addTilesetImage('tiles', 'tiles');
+    this.map.addTilesetImage('tiles');
+    this.map.setCollision(1);
+    // this.map.setCollision(2);
+    // this.map.setCollision(3);
+    // this.map.setCollision(4);
+    // this.map.setCollision(5);
+    // this.map.setCollision(6);
+    
+    this.layer = this.map.createLayer('layer1'); 
+    this.layer.resizeWorld();
+
+    this.player = new Player(this.game, Game.w/2, Game.h/2);
+    // this.player = this.game.add.sprite(Game.w/2, Game.h/2, 'player');
 
     // // Music
     // this.music = this.game.add.sound('music');
@@ -47,6 +69,10 @@ Game.Play.prototype = {
   },
 
   update: function() {
+    
+    this.game.physics.arcade.collide(this.player, this.layer);
+
+    this.player.movements();
 
     // // Toggle Music
     // muteKey.onDown.add(this.toggleMute, this);
