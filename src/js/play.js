@@ -44,10 +44,24 @@ Game.Play.prototype = {
     // this.map.setCollision(6);
     
     this.layer = this.map.createLayer('layer1'); 
+
+    this.powerups = this.game.add.group();
+    this.powerups.enableBody = true;
+
+
+    this.portals = this.game.add.group();
+    this.portals.enableBody = true;
+
+    this.map.createFromObjects('objects',6, 'tiles', 5, true, false, this.powerups); 
+    this.map.createFromObjects('objects',2, 'tiles', 1, true, false, this.portals); 
+
     this.layer.resizeWorld();
 
     this.player = new Player(this.game, Game.w/2, Game.h/2);
-    // this.player = this.game.add.sprite(Game.w/2, Game.h/2, 'player');
+    console.log(this.player);
+
+    // this.powerups.forEach(function(p) {
+    // }, this);
 
     // // Music
     // this.music = this.game.add.sound('music');
@@ -55,10 +69,10 @@ Game.Play.prototype = {
     // this.music.play('',0,1,true);
 
     //Setup WASD and extra keys
-    wKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
-    aKey = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
-    sKey = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
-    dKey = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
+    // wKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
+    // aKey = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+    // sKey = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
+    // dKey = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
     // muteKey = game.input.keyboard.addKey(Phaser.Keyboard.M);
 
 
@@ -71,6 +85,8 @@ Game.Play.prototype = {
   update: function() {
     
     this.game.physics.arcade.collide(this.player, this.layer);
+    this.game.physics.arcade.overlap(this.player, this.powerups, this.pickUpPowerup, null, this);
+    this.game.physics.arcade.overlap(this.player, this.portals, this.enterPortal, null, this);
 
     this.player.movements();
 
@@ -78,11 +94,18 @@ Game.Play.prototype = {
     // muteKey.onDown.add(this.toggleMute, this);
 
   },
+  enterPortal: function(player, portal) {
+    console.log('jump to next level.');
+  },
+  pickUpPowerup: function(player, powerup) {
+    powerup.destroy();  
+    this.player.jumps++;
+  },
   twitter: function() {
     //Popup twitter window to post highscore
     var game_url = 'http://www.divideby5.com/games/GAMETITLE/'; 
     var twitter_name = 'rantt_';
-    var tags = ['1GAM'];
+    var tags = [''];
 
     window.open('http://twitter.com/share?text=My+best+score+is+'+score+'+playing+GAME+TITLE+See+if+you+can+beat+it.+at&via='+twitter_name+'&url='+game_url+'&hashtags='+tags.join(','), '_blank');
   },
