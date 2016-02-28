@@ -42,12 +42,21 @@ var Player = function(game,x, y) {
   this.body.gravity.y = 750;
   this.game.camera.follow(this, Phaser.Camera.FOLLOW_PLATFORMER);
 
+	// Capture certain keys to prevent their default actions in the browser.
+	// This is only necessary because this is an HTML5 game. Games on other
+	// platforms may not need code like this.
+	this.game.input.keyboard.addKeyCapture([
+			Phaser.Keyboard.LEFT,
+			Phaser.Keyboard.RIGHT,
+			Phaser.Keyboard.UP,
+			Phaser.Keyboard.DOWN
+	]);
 
   //Setup WASD and extra keys
-  wKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
-  aKey = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
-  sKey = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
-  dKey = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
+  // wKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
+  // aKey = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+  // sKey = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
+  // dKey = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
   // muteKey = game.input.keyboard.addKey(Phaser.Keyboard.M);
 
   spaceKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);

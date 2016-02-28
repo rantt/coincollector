@@ -18,6 +18,8 @@ var aKey;
 var sKey;
 var dKey;
 var score = 0;
+var FLOOR,WALL;
+var dFloor, dRows, dCols;
 
 Game.Play = function(game) {
   this.game = game;
@@ -30,35 +32,81 @@ Game.Play.prototype = {
   create: function() {
     this.game.world.setBounds(0, 0 ,Game.w ,Game.h);
 
+    this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-		this.game.stage.backgroundColor = '#ececec';
+		// this.game.stage.backgroundColor = '#ececec';
+		// this.game.stage.backgroundColor = '#d0d0d0';
+		this.game.stage.backgroundColor = '#192331';
 
-    this.map = this.game.add.tilemap('level1');
-    // this.map.addTilesetImage('tiles', 'tiles');
-    this.map.addTilesetImage('tiles');
-    this.map.setCollision(1);
-    // this.map.setCollision(2);
-    // this.map.setCollision(3);
-    // this.map.setCollision(4);
-    // this.map.setCollision(5);
-    // this.map.setCollision(6);
-    
-    this.layer = this.map.createLayer('layer1'); 
+    // //Generate Level with Binary Space Paritioning
+    // dCols = COLS;
+    // dRows = ROWS;
+    // dFloor = 1;
+    // var maze = new Maze(COLS, ROWS);
+    //
+    // maze.create();
+    //
+    // this.game.load.tilemap('level', null, maze.drawLevel(), Phaser.Tilemap.CSV );
+    // this.map = this.game.add.tilemap('level', TILE_SIZE, TILE_SIZE);
+    // // this.map.addTilesetImage('dungeon'); //use generated sheet
+    // this.map.addTilesetImage('tiles'); //use generated sheet
+    // this.layer = this.map.createLayer(0);
+    //
+    // this.map.setCollision(0); //Black Empty Space
+    // this.layer.resizeWorld();
 
-    this.powerups = this.game.add.group();
-    this.powerups.enableBody = true;
 
+    //Generate Level with Cellular Automata
+    FLOOR = 3;
+    WALL = 0;
+    this.auto = new Automata(COLS*2, ROWS*2);
+    this.auto.generate();
+    this.auto.cleanup();
 
-    this.portals = this.game.add.group();
-    this.portals.enableBody = true;
+    var cave = this.auto.csv();
+		map = this.auto.map;
 
-    this.map.createFromObjects('objects',6, 'tiles', 5, true, false, this.powerups); 
-    this.map.createFromObjects('objects',2, 'tiles', 1, true, false, this.portals); 
+    this.game.load.tilemap('level', null, cave, Phaser.Tilemap.CSV );
+    this.map = this.game.add.tilemap('level', TILE_SIZE, TILE_SIZE);
+    // this.map.addTilesetImage('dungeon'); //use generated sheet
+    this.map.addTilesetImage('tiles'); //use generated sheet
+    this.layer = this.map.createLayer(0);
 
+    this.map.setCollision(0); //Black Empty Space
     this.layer.resizeWorld();
 
+
+
+
+
+
+
+    // // this.map = this.game.add.tilemap('level1');
+    // this.map = this.game.add.tilemap('level3');
+    // // this.map.addTilesetImage('tiles', 'tiles');
+    // this.map.addTilesetImage('tiles');
+    // this.map.setCollision(1);
+    // // this.map.setCollision(2);
+    // // this.map.setCollision(3);
+    // // this.map.setCollision(4);
+    // // this.map.setCollision(5);
+    // // this.map.setCollision(6);
+    //
+    // this.layer = this.map.createLayer('layer1'); 
+    //
+    // this.powerups = this.game.add.group();
+    // this.powerups.enableBody = true;
+    //
+    // this.portals = this.game.add.group();
+    // this.portals.enableBody = true;
+    //
+    // this.map.createFromObjects('objects',6, 'tiles', 5, true, false, this.powerups); 
+    // this.map.createFromObjects('objects',2, 'tiles', 1, true, false, this.portals); 
+    //
+    // this.layer.resizeWorld();
+    //
     this.player = new Player(this.game, Game.w/2, Game.h/2);
-    console.log(this.player);
+    // console.log(this.player);
 
     // this.powerups.forEach(function(p) {
     // }, this);
@@ -85,8 +133,8 @@ Game.Play.prototype = {
   update: function() {
     
     this.game.physics.arcade.collide(this.player, this.layer);
-    this.game.physics.arcade.overlap(this.player, this.powerups, this.pickUpPowerup, null, this);
-    this.game.physics.arcade.overlap(this.player, this.portals, this.enterPortal, null, this);
+    // this.game.physics.arcade.overlap(this.player, this.powerups, this.pickUpPowerup, null, this);
+    // this.game.physics.arcade.overlap(this.player, this.portals, this.enterPortal, null, this);
 
     this.player.movements();
 

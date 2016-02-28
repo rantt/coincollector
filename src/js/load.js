@@ -1,11 +1,11 @@
 
-var tileSize = 20,
-rows = 12,
-cols = 12;
+var TILE_SIZE = 20,
+ROWS = 32,
+COLS = 32;
 
 var Game = {
-  w: tileSize * cols,
-  h: tileSize * rows 
+  w: TILE_SIZE * COLS,
+  h: TILE_SIZE * ROWS 
 };
 
 Game.Boot = function(game) {
@@ -54,6 +54,8 @@ Game.Load.prototype = {
 
     //Tilemaps
     this.game.load.tilemap('level1', 'assets/atlas/level1.json', null, Phaser.Tilemap.TILED_JSON);
+    this.game.load.tilemap('level2', 'assets/atlas/level2.json', null, Phaser.Tilemap.TILED_JSON);
+    this.game.load.tilemap('level3', 'assets/atlas/level3.json', null, Phaser.Tilemap.TILED_JSON);
     this.game.load.spritesheet('tiles', 'assets/images/tiles.png', 20, 20, 7);
 
     this.game.load.spritesheet('player', 'assets/images/player.png', 20, 20, 5);
