@@ -6,8 +6,9 @@ function Automata(width, height) {
   this.height = Math.floor(height);
   this.lifeCycles = 0;
   this.cells = [];
-  this.minimumLifeCycles = 40;
+  this.minimumLifeCycles = 30;
   this.spawnChance = 7; //Percentage Chance to Spawn a child cell
+  this.floorCount = 0;
 
   // Initialize Map
   this.resetMap();
@@ -68,6 +69,7 @@ Automata.prototype.addCell = function (xpos, ypos) {
   var y = ypos || Math.floor(this.height / 2);
   var cell = new Cell(x, y, this.map[y][x]);
   this.map[cell.y][cell.x] = FLOOR;
+  this.floorCount++;
 
   this.cells.push(cell);
 };
@@ -252,20 +254,20 @@ Cell.prototype.neighbours = function (map) {
   if (this.checkNeighbour(this.west(), map)) {
     neighbours.push(this.west());
   }
-  if (this.allowDiagonals === true) {
-    if (this.checkNeighbour(this.south_west(), map)) {
-      neighbours.push(this.south_west());
-    }
-    if (this.checkNeighbour(this.south_east(), map)) {
-      neighbours.push(this.south_east());
-    }
-    if (this.checkNeighbour(this.north_east(), map)) {
-      neighbours.push(this.north_east());
-    }
-    if (this.checkNeighbour(this.north_west(), map)) {
-      neighbours.push(this.north_west());
-    }
-  }
+  // if (this.allowDiagonals === true) {
+  //   if (this.checkNeighbour(this.south_west(), map)) {
+  //     neighbours.push(this.south_west());
+  //   }
+  //   if (this.checkNeighbour(this.south_east(), map)) {
+  //     neighbours.push(this.south_east());
+  //   }
+  //   if (this.checkNeighbour(this.north_east(), map)) {
+  //     neighbours.push(this.north_east());
+  //   }
+  //   if (this.checkNeighbour(this.north_west(), map)) {
+  //     neighbours.push(this.north_west());
+  //   }
+  // }
   if (neighbours.length === 0) {
     this.alive = false;
   }

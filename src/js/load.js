@@ -1,7 +1,11 @@
 
 var TILE_SIZE = 20,
-ROWS = 32,
-COLS = 32;
+ROWS = 24,
+COLS = 24;
+
+
+// ROWS = 16,
+// COLS = 16;
 
 var Game = {
   w: TILE_SIZE * COLS,
@@ -20,7 +24,6 @@ Game.Boot.prototype = {
 		this.game.load.image('title', 'assets/images/title.png');
 		this.game.load.image('instructions', 'assets/images/instructions.png');
     this.game.load.bitmapFont('minecraftia', 'assets/fonts/font.png', 'assets/fonts/font.xml'); //load default font
-
 
     // //Scale Image to Fit Window
     // this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -62,10 +65,12 @@ Game.Load.prototype = {
 
     // Music Track
     // this.game.load.audio('music','soundtrack.mp3');
+    this.game.load.audio('music','assets/audio/cannontube_loop_medium.ogg');
+    this.game.load.audio('coin','assets/audio/coin.wav');
 
   },
   create: function() {
-    // this.game.state.start('Menu');
-    this.game.state.start('Play');
+    this.game.state.start('Menu');
+    // this.game.state.start('Play');
   }
 };
