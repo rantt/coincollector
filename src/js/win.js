@@ -18,7 +18,7 @@ Game.Win.prototype =  {
     this.twitterButton.visible = false;
 
 
-      this.playAgainText = this.game.add.bitmapText(Game.w + 200, Game.h/2, 'minecraftia','Play Again?',48);
+      this.playAgainText = this.game.add.bitmapText(Game.w + 200, Game.h/2, 'minecraftia','You WIN!\nPlay Again?',48);
       
       this.playAgainText.anchor.set(0.5);
       this.game.time.events.add(Phaser.Timer.SECOND * 0.5, function() { 

@@ -73,7 +73,7 @@ Game.Play.prototype = {
 
     coin_count = this.auto.countTile(5);
 
-    if (coin_count === 0) {
+    if (coin_count === undefined || coin_count === 0) {
       this.game.state.start('Play');
     }
 
@@ -128,9 +128,12 @@ Game.Play.prototype = {
       this.game.physics.arcade.collide(this.player, this.layer);
       this.coinsText.setText('Coins: '+coins+'/'+coin_count);
       this.player.movements();
-    }else {
+    }else if (coin_count > 0 && coins >= coin_count) {
       this.music.stop();
       this.game.state.start('Win');
+    }
+    else {
+      this.game.state.start('Play');
     }
 
   },
