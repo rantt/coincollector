@@ -53,10 +53,9 @@ Game.Menu.prototype =  {
       .to( {y:100 }, 2000, Phaser.Easing.Linear.In, true, 0, -1)
       .yoyo(true);
 
-    this.instructions = this.game.add.sprite(Game.w/2+200,200,'instructions');
-    this.instructions.scale.x = 0.5;
-    this.instructions.scale.y = 0.5;
 
+    var instructions = this.game.add.bitmapText(Game.w/2, Game.h-100, 'minecraftia', 'Controls:\nWASD/Arrows\nw/ Double Jumps and Wall Jumps!', 18);
+    instructions.anchor.setTo(0.5);
 
     var music_by = this.game.add.bitmapText(Game.w/2, Game.h-10, 'minecraftia', 'Music: Cannon Tube by Max Gooroo', 18);
     music_by.anchor.setTo(0.5);
