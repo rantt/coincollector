@@ -30,6 +30,18 @@ Automata.prototype.resetMap = function() {
   }
 };
 
+Automata.prototype.countTile = function (tile) {
+  //Print the Current Map
+  var count = 0;
+  for (var y = 0; y < this.height; y++) {
+    for (var x = 0; x < this.width; x++) {
+      if (this.map[y][x] === tile) {
+        count++;
+      } 
+    }
+  }
+  return count;
+};
 
 Automata.prototype.print = function () {
   //Print the Current Map

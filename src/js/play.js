@@ -68,31 +68,26 @@ Game.Play.prototype = {
           this.auto.map[y][x-1] === FLOOR &&
           this.auto.map[y][x+1]) {
         this.auto.map[y][x] = 5;
-        coin_count++;
       }
     } 
+
+    coin_count = this.auto.countTile(5);
+
+    if (coin_count === 0) {
+      this.game.state.start('Play');
+    }
 
     var cave = this.auto.csv();
 
     this.game.load.tilemap('level', null, cave, Phaser.Tilemap.CSV );
     this.map = this.game.add.tilemap('level', TILE_SIZE, TILE_SIZE);
     this.map.addTilesetImage('tiles'); //use generated sheet
-    // this.map.setTileIndexCallback(5, this.collectCoin, this);
-
- //  And now we convert all of the Tiled objects with an ID of 34 into sprites within the coins group
- //      map.createFromObjects('Object Layer 1', 34, 'coin', 0, true, false, coins);
-
-    // this.coins = this.game.add.group();
     this.map.setTileIndexCallback(5, this.collectCoin, this);
-    // this.map.setTileLocationCallback(5, 3, 1, 1, this.collectCoin, this);
 
     this.layer = this.map.createLayer(0);
 
     this.map.setCollision(WALL); //Black Empty Space
     this.layer.resizeWorld();
-
-    // var pixel_size = 4;
-    // var minimap = this.game.add.bitmapData(COLS,ROWS);
 
 		this.coinsText = this.game.add.bitmapText(Game.w-200,10,'minecraftia','Coins: '+coins+'/'+coin_count,24);
     this.coinsText.tint = 0xffff00;
@@ -136,21 +131,7 @@ Game.Play.prototype = {
     }else {
       this.music.stop();
       this.game.state.start('Win');
-      // this.playAgainText.setText('Play Again?');
-      // this.game.time.events.add(Phaser.Timer.SECOND * 0.5, function() { 
-      //     this.game.add.tween(this.playAgainText).to({x: this.game.world.centerX-300}, 355, Phaser.Easing.Linear.None).start();
-      //     this.twitterButton.visible = true;
-      // }, this);
-      //   
-      // if (this.game.input.activePointer.isDown || wKey.isDown || this.cursors.up.isDown){
-      //   coins = 0;
-      //   this.music.stop();
-      //   this.game.state.start('Play');
-      // }
     }
-
-    // // Toggle Music
-    // muteKey.onDown.add(this.toggleMute, this);
 
   },
   twitter: function() {
@@ -162,17 +143,5 @@ Game.Play.prototype = {
     window.open('http://twitter.com/share?text=I+Beat+Coin+Collector+See+if+you+can+beat+it.+at&via='+twitter_name+'&url='+game_url+'&hashtags='+tags.join(','), '_blank');
   },
 
-  // toggleMute: function() {
-  //   if (musicOn == true) {
-  //     musicOn = false;
-  //     this.music.volume = 0;
-  //   }else {
-  //     musicOn = true;
-  //     this.music.volume = 0.5;
-  //   }
-  // },
-  // render: function() {
-  //   game.debug.text('Health: ' + tri.health, 32, 96);
-  // }
 
 };

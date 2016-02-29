@@ -1,4 +1,8 @@
 /*global Game*/
+
+// function rand (min, max) {
+//     return Math.floor(Math.random() * (max - min + 1)) + min;
+// }
 Game.Menu = function(game){
   this.game = game;
 };
@@ -8,15 +12,15 @@ Game.Menu.prototype =  {
     //Generate Level with Cellular Automata
     FLOOR = 2;
     WALL = 3;
-    this.auto = new Automata(COLS*2, ROWS*2);
+    this.auto = new Automata(COLS, ROWS);
     this.auto.generate();
     this.auto.cleanup();
 
     coin_limit = Math.floor(this.auto.floorCount*0.2);
 
     for(var i = 0; i < coin_limit;i++) {
-      var x = rand(2, COLS*2-2);
-      var y = rand(2, ROWS*2-2);
+      var x = rand(3, COLS-4);
+      var y = rand(3, ROWS-4);
       if (this.auto.map[y][x] === FLOOR &&
           this.auto.map[y-1][x] === FLOOR &&
           this.auto.map[y+1][x] === FLOOR &&
@@ -54,6 +58,18 @@ Game.Menu.prototype =  {
     this.instructions.scale.y = 0.5;
 
 
+    var music_by = this.game.add.bitmapText(Game.w/2, Game.h-10, 'minecraftia', 'Music: Cannon Tube by Max Gooroo', 18);
+    music_by.anchor.setTo(0.5);
+    music_by.inputEnabled = true;
+    music_by.events.onInputDown.add(function() {
+      window.open("http://opengameart.org/content/cannon-tube");
+    },this);
+    music_by.events.onInputOver.add(function() {
+      music_by.tint = 0xffff00;
+    },this);
+    music_by.events.onInputOut.add(function() {
+      music_by.tint = 0xffffff;
+    },this);
 
 
 
