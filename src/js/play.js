@@ -57,7 +57,7 @@ Game.Play.prototype = {
     this.auto.generate();
     this.auto.cleanup();
 
-    coin_limit = Math.floor(this.auto.floorCount*0.2);
+    coin_limit = Math.floor(this.auto.floorCount*0.4);
 
     for(var i = 0; i < coin_limit;i++) {
       var x = rand(2, COLS*2-2);
