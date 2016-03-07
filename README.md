@@ -11,6 +11,6 @@ You can play the game [here](http://divideby5.com/games/coincollector).
 Developed using [Phaser.js](http://phaser.io)
 
 ##Music
-[Cannon Tube](http://opengameart.org/content/cannon-tube) by [Max Gooroo](http://opengameart.org/users/max-gooroo)
+[Cannon Tube](http://opengameart.org/content/cannon-tube) by [Gundatsch](http://opengameart.org/users/gundatsch)
 
 

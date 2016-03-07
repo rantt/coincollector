@@ -57,7 +57,7 @@ Game.Menu.prototype =  {
     var instructions = this.game.add.bitmapText(Game.w/2, Game.h-100, 'minecraftia', 'Controls:\nWASD/Arrows\nw/ Double Jumps and Wall Jumps!', 18);
     instructions.anchor.setTo(0.5);
 
-    var music_by = this.game.add.bitmapText(Game.w/2, Game.h-10, 'minecraftia', 'Music: Cannon Tube by Max Gooroo', 18);
+    var music_by = this.game.add.bitmapText(Game.w/2, Game.h-10, 'minecraftia', 'Music: Cannon Tube by Gundatsch', 18);
     music_by.anchor.setTo(0.5);
     music_by.inputEnabled = true;
     music_by.events.onInputDown.add(function() {
